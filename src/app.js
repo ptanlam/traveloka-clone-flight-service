@@ -42,7 +42,7 @@ app
       await flight.save();
       res
         .status(201)
-        .send(`Đã đăng ký chuyến bay ${flight.flightId} thành công`);
+        .send(`Đã đăng ký chuyến bay ${flight.flightId} thành công!`);
     } catch (error) {
       res.status(500).send(`Có lỗi xảy ra: ${error.message}`);
     }
