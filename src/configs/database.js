@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 export default async function connectToDatabase() {
   try {
     await mongoose.connect(
-      'mongodb://localhost/traveloka_clone_property_service',
+      'mongodb://localhost/traveloka_clone_flight_service',
       {
         useCreateIndex: true,
         useFindAndModify: false,
@@ -12,11 +12,11 @@ export default async function connectToDatabase() {
       },
     );
     // eslint-disable-next-line no-console
-    console.log('Property service connected to database successfully!');
+    console.log('Flight DB connected successfully!');
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(
-      `Property service failed to connect to database: ${err.message}`,
+      `Failed while connecting: ${err.message}`,
     );
   }
 }
