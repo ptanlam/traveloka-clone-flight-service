@@ -12,7 +12,7 @@ connectToDatabase();
 app.use(express.urlencoded({ extended: true })); // make the request body readable
 app.use(express.json());
 
-app.use('/', routes);
+app.use('/api/v1', routes);
 
 // eslint-disable-next-line no-console
 app.listen(PORT, () => console.log(`Property service is running on ${PORT}`));
