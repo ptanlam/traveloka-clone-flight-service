@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const { Schema, SchemaTypes } = mongoose;
+const { Schema } = mongoose;
 
 const airportSchema = new Schema(
   {
@@ -30,6 +30,6 @@ const airportSchema = new Schema(
   }
 );
 
-const Airport = mongoose.model("airports", airportSchema);
+const Airport = mongoose.model('airports', airportSchema);
 
 export default Airport;
