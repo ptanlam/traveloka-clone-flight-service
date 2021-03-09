@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const { Schema, SchemaTypes } = mongoose;
 
@@ -11,35 +11,22 @@ const flightScheduleSchema = new Schema(
       required: true,
     },
 
-    //2 trường hold id thông tin về hãng và máy bay.
-    airlineName: { type: String, require: true }, // thêm logo
-    airlineCountry: { type: String, require: true },
-    // chuyển qua ref , lưu id mongo?
-    aircraftTypeName: { type: String, require: true }, //VD boeing 700, airbus
-    aircraftTypeCapacity: { type: Number, require: true }, // máy bay chỉ chứa được max là nhiêu đây
-    // thêm trường giá từng ghế [#1]
-    firstAirportCode: {
-      // lưu id mongo
-      type: Schema.Types.ObjectId,
-      ref: "airport",
-    },
-    finalAirportCode: {
-      type: Schema.Types.ObjectId,
-      ref: "airport",
-    },
-    transitAirportCode: {
-      type: [Schema.Types.ObjectId],
-      ref: "airport",
-    },
+    airlineCode: { type: String, require: true },
+    aircraftCode: { type: String, require: true },
+
+    firstAirportCode: { type: String, require: true },
+    finalAirportCode: { type: String, require: true },
+    transitAirportCode: { type: String },
 
     departureAt: { type: Date, required: true },
     arrivalAt: { type: Date, required: true },
+    commercialRatio: { type: SchemaTypes.Decimal128, default: 1 },
   },
   {
     timestamps: true,
   }
 );
 
-const FlightSchedule = mongoose.model("flight_schedule", hotelSchema);
+const FlightSchedule = mongoose.model('flight_schedule', flightScheduleSchema);
 
 export default FlightSchedule;

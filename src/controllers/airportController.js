@@ -1,7 +1,7 @@
 import Airport from "../models/Airport";
 
 // [GET]: api/v1/airports/:_id?
-async function getAirports(req, res) {
+async function getAirports(req, res, next) {
   try {
     const { _id } = req.params;
     if (_id) {
@@ -11,7 +11,8 @@ async function getAirports(req, res) {
     const airports = await Airport.find();
     return res.status(200).json({ airports });
   } catch (error) {
-    return res.status(500).send(`Errors occurred: ${error.message}`);
+    return next(error);
+    //return res.status(500).send(`Errors occurred: ${error.message}`);
   }
 }
 

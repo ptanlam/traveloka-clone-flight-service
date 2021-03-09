@@ -11,7 +11,6 @@ const airportSchema = new Schema(
       required: true,
     },
     airportLocation: { type: String, maxLength: 250 },
-    //string lat long
     airportLattitude: {
       type: String,
       maxLength: 250,
