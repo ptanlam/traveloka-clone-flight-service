@@ -1,4 +1,4 @@
-import Airport from "../models/Airport";
+import Airport from '../models/Airport';
 
 // [GET]: api/v1/airports/:_id?
 async function getAirports(req, res) {
@@ -32,7 +32,7 @@ async function postAirport(req, res) {
 async function patchAirport(req, res) {
   const { _id } = req.params;
 
-  if (!_id) return res.status(404).send("Can not get id");
+  if (!_id) return res.status(404).send('Can not get id');
   try {
     const airport = await Airport.findByIdAndUpdate(_id, { ...req.body });
     if (!airport) return res.status(404).send(`Can not update the id: ${_id}!`);
@@ -48,12 +48,13 @@ async function patchAirport(req, res) {
 async function deleteAirport(req, res) {
   const { _id } = req.params;
 
-  if (!_id) return res.status(404).send("Can not get id");
+  if (!_id) return res.status(404).send('Can not get id');
 
   try {
     const airport = await Airport.findById(_id);
-    if (!airport)
+    if (!airport) {
       return res.status(404).send(`Can not find record with id ${_id}`);
+    }
     await airport.deleteOne();
     return res.status(200).send(`Deleted the record with id ${_id}`);
   } catch (err) {
@@ -63,4 +64,9 @@ async function deleteAirport(req, res) {
   }
 }
 
-export default { getAirports, postAirport, patchAirport, deleteAirport };
+export default {
+  getAirports,
+  postAirport,
+  patchAirport,
+  deleteAirport,
+};
