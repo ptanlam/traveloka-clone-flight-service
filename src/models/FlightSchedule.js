@@ -6,24 +6,25 @@ const flightScheduleSchema = new Schema(
   {
     flightId: {
       type: String,
-      maxlength: 20,
+      maxLength: 20,
       unique: true,
       required: true,
     },
 
-    airlineCode: { type: String, require: true },
-    aircraftCode: { type: String, require: true },
+    airlineCode: { type: String, required: true },
+    aircraftCode: { type: String, required: true },
 
-    firstAirportCode: { type: String, require: true },
-    finalAirportCode: { type: String, require: true },
+    firstAirportCode: { type: String, required: true },
+    finalAirportCode: { type: String, required: true },
     transitAirportCode: { type: String },
 
     departureAt: { type: Date, required: true },
     arrivalAt: { type: Date, required: true },
-    commercialRatio: { type: SchemaTypes.Decimal128, default: 1 },
+    commercialRatio: { type: SchemaTypes.Decimal128, default: 0 },
   },
   {
     timestamps: true,
+    _id: false,
   }
 );
 

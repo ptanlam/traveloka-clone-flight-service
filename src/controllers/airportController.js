@@ -12,43 +12,41 @@ async function getAirports(req, res, next) {
     return res.status(200).json({ airports });
   } catch (error) {
     return next(error);
-    //return res.status(500).send(`Errors occurred: ${error.message}`);
   }
 }
 
 // [POST]: api/v1/airports
-async function postAirport(req, res) {
+async function postAirport(req, res, next) {
   try {
     const newAirport = new Airport({ ...req.body });
     await newAirport.save();
+
     return res
       .status(201)
       .send(`Posted airport: ${newAirport.airportName} sucessfully.`);
-  } catch (err) {
-    return res.status(500).send(`Some errors occurred: ${err.message}`);
+  } catch (error) {
+    return next(error);
   }
 }
 
 // [PATCH]: api/v1/airports/id
-async function patchAirport(req, res) {
+async function patchAirport(req, res, next) {
   const { _id } = req.params;
-
   if (!_id) return res.status(404).send('Can not get id');
+
   try {
     const airport = await Airport.findByIdAndUpdate(_id, { ...req.body });
     if (!airport) return res.status(404).send(`Can not update the id: ${_id}!`);
+
     return res.status(200).send(`Updated record with the id: ${_id}`);
-  } catch (err) {
-    return res
-      .status(500)
-      .send(`Some errors occurred while updating: ${err.message}`);
+  } catch (error) {
+    return next(error);
   }
 }
 
 // [DELETE]: api/v1/airports/id
-async function deleteAirport(req, res) {
+async function deleteAirport(req, res, next) {
   const { _id } = req.params;
-
   if (!_id) return res.status(404).send('Can not get id');
 
   try {
@@ -56,12 +54,11 @@ async function deleteAirport(req, res) {
     if (!airport) {
       return res.status(404).send(`Can not find record with id ${_id}`);
     }
+
     await airport.deleteOne();
     return res.status(200).send(`Deleted the record with id ${_id}`);
-  } catch (err) {
-    return res
-      .status(500)
-      .send(`Some errors occurred while deleting: ${err.message}`);
+  } catch (error) {
+    return next(error);
   }
 }
 

@@ -16,7 +16,7 @@ const airlineSchema = new Schema({
     require: true,
   },
 
-  airlineLogo: {
+  airlineLogoUrl: {
     type: String,
     require: true,
   },

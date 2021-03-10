@@ -10,14 +10,14 @@ const airportSchema = new Schema(
       unique: true,
       required: true,
     },
-    airportLocation: { type: String, maxLength: 250 },
-    airportLattitude: {
+    airportLocation: { type: String, maxLength: 250, required: true },
+    airportLatitude: {
       type: String,
       maxLength: 250,
       unique: true,
       required: true,
     },
-    airportLongtitude: {
+    airportLongitude: {
       type: String,
       maxLength: 250,
       required: true,
