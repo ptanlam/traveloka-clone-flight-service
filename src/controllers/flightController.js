@@ -1,3 +1,5 @@
+import readXlsxFile from 'read-excel-file/node';
+import xlsx from 'xlsx';
 import FlightSchedule from '../models/FlightSchedule';
 
 // [GET] /api/v1/flightSchedules
@@ -20,22 +22,26 @@ async function getFlightSchedules(req, res, next) {
 
 // [POST] /api/v1/flightSchedules
 async function postFlightSchedule(req, res) {
-  const newRecord = { ...req.body };
-  newRecord.departureAt = new Date(newRecord.departureAt * 1000);
-  newRecord.arrivalAt = new Date(newRecord.arrivalAt * 1000);
+  // Convert incoming excel file to json
+  const wb = xlsx.read(req.file.buffer, { cellDates: true });
+  const wsname = wb.SheetNames[0];
+  const ws = wb.Sheets[wsname];
+  const flights = xlsx.utils.sheet_to_json(ws);
+
   try {
-    const newFlightSchedule = new FlightSchedule({ ...newRecord });
-    await newFlightSchedule.save();
-    return res
-      .status(200)
-      .send(
-        `Thiết lập lịch trình bay mã ${newFlightSchedule.flightId} thành công!`
-      );
+    flights.forEach(async (flight) => {
+      const newFlightSchedule = new FlightSchedule({ ...flight });
+      await newFlightSchedule.save();
+    });
+
+    return res.status(200).send('Thiết lập lịch trình bay thành công!');
   } catch (error) {
     return res
       .status(500)
-      .send('Có lỗi xảy ra vui lòng nhập lại lịch trình bay!');
+      .send(`Có lỗi xảy ra vui lòng nhập lại lịch trình bay! ${error.message}`);
   }
+
+  res.status(200).send('OK');
 }
 
 // [PATCH] api/v1/flightSchedules/id

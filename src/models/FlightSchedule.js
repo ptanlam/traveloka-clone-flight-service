@@ -4,11 +4,9 @@ const { Schema, SchemaTypes } = mongoose;
 
 const flightScheduleSchema = new Schema(
   {
-    flightId: {
+    _id: {
       type: String,
       maxLength: 20,
-      unique: true,
-      required: true,
     },
 
     airlineCode: { type: String, required: true },
@@ -24,10 +22,9 @@ const flightScheduleSchema = new Schema(
   },
   {
     timestamps: true,
-    _id: false,
   }
 );
 
-const FlightSchedule = mongoose.model('flight_schedule', flightScheduleSchema);
+const FlightSchedule = mongoose.model('flight', flightScheduleSchema);
 
 export default FlightSchedule;
