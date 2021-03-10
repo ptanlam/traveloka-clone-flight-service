@@ -1,4 +1,3 @@
-import readXlsxFile from 'read-excel-file/node';
 import xlsx from 'xlsx';
 import FlightSchedule from '../models/FlightSchedule';
 
@@ -40,8 +39,6 @@ async function postFlightSchedule(req, res) {
       .status(500)
       .send(`Có lỗi xảy ra vui lòng nhập lại lịch trình bay! ${error.message}`);
   }
-
-  res.status(200).send('OK');
 }
 
 // [PATCH] api/v1/flightSchedules/id
