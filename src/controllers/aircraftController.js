@@ -30,10 +30,11 @@ async function patchAircraft(req, res, next) {
   const { _id } = req.params;
   if (!_id) return res.status(404).send(`Can not find record with id: ${_id}`);
   try {
-    const aircraft = await Aircraft.findByIdAndUpdate(_id, { ...req.body });
+    const aircraft = await Aircraft.findById(_id);
     if (!aircraft) {
       return res.status(404).send(`Can not find record with id: ${_id}`);
     }
+    aircraft.update({ ...req.body });
     return res.status(200).send(`Updated record with id ${_id}`);
   } catch (error) {
     return next(error);

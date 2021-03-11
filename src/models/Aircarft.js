@@ -1,38 +1,23 @@
-code;
-name;
-luggage;
-hand_luggage;
-Capacity;
-classofseat;
-timestamps;
-
-import mongoose, { SchemaTypes } from 'mongoose';
+import mongoose from 'mongoose';
 
 const { Schema, SchemaType } = mongoose;
 
 const aircraftSchema = new Schema({
+  // aircraftCode
+  _id: {
+    type: String,
+    maxLength: 250,
+  },
+
   aircraftName: {
     type: String,
     maxLength: 250,
-    require: true,
-    unique: true,
-  },
-
-  aircraftCode: {
-    type: String,
-    maxLength: 250,
-    require: true,
-    unique: true,
-  },
-
-  aircraftLuggage: {
-    type: Number,
-    require: true,
-  },
-
-  aircrafHandLuggage: {
-    type: Number,
     required: true,
+  },
+
+  aircraftHandLuggage: {
+    type: Number,
+    default: 7,
   },
 
   aircraftCapacity: {
@@ -43,14 +28,18 @@ const aircraftSchema = new Schema({
   aircraftSeatClass: {
     type: [
       {
-        seatClass: { type: String, unique: true },
-        price: { type: SchemaType.Decimal128, require: true, default: 0 },
+        seatClass: { type: String, unique: true, required: true },
+        price: { type: SchemaType.Decimal128, default: 0, required: true },
+        aircraftLuggage: {
+          type: Number,
+          required: true,
+        },
       },
     ],
     required: true,
   },
 });
 
-const Aircraft = mongoose.model('Aircraft', AircraftSchema);
+const Aircraft = mongoose.model('aircraft', aircraftSchema);
 
 export default Aircraft;

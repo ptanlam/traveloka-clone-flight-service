@@ -50,10 +50,8 @@ async function patchFlightSchedule(req, res, next) {
       updatedRecord.departureAt = new Date(updatedRecord.departureAt * 1000);
       updatedRecord.arrivalAt = new Date(updatedRecord.arrivalAt * 1000);
     }
-    await FlightSchedule.findByIdAndUpdate(_id, {
-      ...updatedRecord,
-    });
-
+    const flightSchedule = FlightSchedule.findById(_id);
+    flightSchedule.update({ ...req.body });
     return res
       .status(200)
       .send(`Đã cập nhật thành công lịch trình bay với mã ${_id}`);

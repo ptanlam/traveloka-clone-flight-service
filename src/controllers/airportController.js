@@ -35,9 +35,10 @@ async function patchAirport(req, res, next) {
   if (!_id) return res.status(404).send('Can not get id');
 
   try {
-    const airport = await Airport.findByIdAndUpdate(_id, { ...req.body });
+    const airport = await Airport.findById(_id);
     if (!airport) return res.status(404).send(`Can not update the id: ${_id}!`);
 
+    airport.update({ ...req.body });
     return res.status(200).send(`Updated record with the id: ${_id}`);
   } catch (error) {
     return next(error);

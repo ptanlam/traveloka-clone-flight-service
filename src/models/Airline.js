@@ -24,4 +24,4 @@ const airlineSchema = new Schema({
 
 const Airline = mongoose.model('airline', airlineSchema);
 
-export default Aircraft;
+export default Airline;
