@@ -1,5 +1,5 @@
 import express from 'express';
-import AircraftController from '../controllers/AircraftController';
+import AircraftController from '../controllers/aircraftController';
 
 const router = express.Router();
 

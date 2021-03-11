@@ -13,14 +13,12 @@ async function getFlightSchedules(req, res, next) {
     const flightSchedule = FlightSchedule.findById(_id);
     return res.status(200).send('Get records').json({ flightSchedule });
   } catch (error) {
-    return res
-      .status(404)
-      .send(`Không tìm thấy dữ liệu. Errors: ${error.message}}`);
+    return next(error);
   }
 }
 
 // [POST] /api/v1/flightSchedules
-async function postFlightSchedule(req, res) {
+async function postFlightSchedule(req, res, next) {
   // Convert incoming excel file to json
   const wb = xlsx.read(req.file.buffer, { cellDates: true });
   const wsname = wb.SheetNames[0];
@@ -35,14 +33,12 @@ async function postFlightSchedule(req, res) {
 
     return res.status(200).send('Thiết lập lịch trình bay thành công!');
   } catch (error) {
-    return res
-      .status(500)
-      .send(`Có lỗi xảy ra vui lòng nhập lại lịch trình bay! ${error.message}`);
+    return next(error);
   }
 }
 
 // [PATCH] api/v1/flightSchedules/id
-async function patchFlightSchedule(req, res) {
+async function patchFlightSchedule(req, res, next) {
   const { _id } = req.params;
   if (!_id) {
     return res.status(404).send(`Không tìm thấy lịch trình bay có mã ${_id}`);
@@ -61,15 +57,13 @@ async function patchFlightSchedule(req, res) {
     return res
       .status(200)
       .send(`Đã cập nhật thành công lịch trình bay với mã ${_id}`);
-  } catch (err) {
-    return res
-      .status(500)
-      .send(`Some errors occurred while updating: ${err.message}`);
+  } catch (error) {
+    return next(error);
   }
 }
 
 // [DELETE] api/v1/flightSchedules/id
-async function deleteFlightSchedule(req, res) {
+async function deleteFlightSchedule(req, res, next) {
   const { _id } = req.params;
   if (!_id) {
     return res.status(404).send('Vui lòng kiểm tra lại mã lịch trình bay');
@@ -83,10 +77,8 @@ async function deleteFlightSchedule(req, res) {
 
     await flightSchedule.deleteOne();
     return res.status(200).send(`Đã xoá lịch bay với mã ${_id}`);
-  } catch (err) {
-    return res
-      .status(500)
-      .send(`Some errors occurred while deleting: ${err.message}`);
+  } catch (error) {
+    return next(error);
   }
 }
 

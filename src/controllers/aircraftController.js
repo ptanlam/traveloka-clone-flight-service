@@ -1,21 +1,21 @@
-import Aircraft from '../models/Aircraft';
+import Aircraft from '../models/Aircarft';
 
-// [GET]: api/v1/Aircrafts/id
+// [GET]: api/v1/aircrafts/id
 async function getAircrafts(req, res, next) {
   try {
     const { _id } = req.params;
     if (_id) {
-      const Aircraft = await Aircraft.findById(_id);
-      return res.status(200).json({ Aircraft });
+      const aircraft = await Aircraft.findById(_id);
+      return res.status(200).json({ aircraft });
     }
-    const Aircraft = await Aircraft.find();
-    return res.status(200).json({ Aircraft });
+    const aircraft = await Aircraft.find();
+    return res.status(200).json({ aircraft });
   } catch (error) {
     return next(error);
   }
 }
 
-// [POST]: api/v1/Aircrafts
+// [POST]: api/v1/aircrafts
 async function postAircraft(req, res, next) {
   try {
     const newAircraft = new Aircraft({ ...req.body });
@@ -25,13 +25,13 @@ async function postAircraft(req, res, next) {
     return next(error);
   }
 }
-// [PATCH]: api/v1/Aircrafts/id
+// [PATCH]: api/v1/aircrafts/id
 async function patchAircraft(req, res, next) {
   const { _id } = req.params;
   if (!_id) return res.status(404).send(`Can not find record with id: ${_id}`);
   try {
-    const Aircraft = await Aircraft.findByIdAndUpdate(_id, { ...req.body });
-    if (!Aircraft) {
+    const aircraft = await Aircraft.findByIdAndUpdate(_id, { ...req.body });
+    if (!aircraft) {
       return res.status(404).send(`Can not find record with id: ${_id}`);
     }
     return res.status(200).send(`Updated record with id ${_id}`);
@@ -40,16 +40,16 @@ async function patchAircraft(req, res, next) {
   }
 }
 
-// [DELETE]: api/v1/Aircrafts/id
+// [DELETE]: api/v1/aircrafts/id
 async function deleteAircraft(req, res, next) {
   const { _id } = req.params;
   if (!_id) return res.status(404).send(`Can not find record with id: ${_id}`);
   try {
-    const Aircraft = await Aircraft.findById(_id);
+    const aircraft = await Aircraft.findById(_id);
     if (!Aircraft) {
       return res.status(404).send(`Can not find record with id: ${_id}`);
     }
-    await Aircraft.deleteOne();
+    await aircraft.deleteOne();
     return res.status(200).send(`Deleted the record with id ${_id}`);
   } catch (error) {
     return next(error);

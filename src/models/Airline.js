@@ -6,22 +6,22 @@ const airlineSchema = new Schema({
   airlineName: {
     type: String,
     maxLength: 250,
-    require: true,
+    required: true,
     unique: true,
   },
 
   airlineCountry: {
     type: String,
     maxLength: 250,
-    require: true,
+    required: true,
   },
 
   airlineLogoUrl: {
     type: String,
-    require: true,
+    required: true,
   },
 });
 
 const Airline = mongoose.model('airline', airlineSchema);
 
-export default Airline;
+export default Aircraft;

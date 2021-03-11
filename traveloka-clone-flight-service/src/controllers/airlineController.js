@@ -1,7 +1,7 @@
 import Aircraft from '../models/Aircraft';
 
 // [GET]: api/v1/Aircrafts/id
-async function getAircrafts(req, res, next) {
+async function getAircrafts(req, res) {
   try {
     const { _id } = req.params;
     if (_id) {
@@ -16,7 +16,7 @@ async function getAircrafts(req, res, next) {
 }
 
 // [POST]: api/v1/Aircrafts
-async function postAircraft(req, res, next) {
+async function postAircraft(req, res) {
   try {
     const newAircraft = new Aircraft({ ...req.body });
     await newAircraft.save();
@@ -26,7 +26,7 @@ async function postAircraft(req, res, next) {
   }
 }
 // [PATCH]: api/v1/Aircrafts/id
-async function patchAircraft(req, res, next) {
+async function patchAircraft(req, res) {
   const { _id } = req.params;
   if (!_id) return res.status(404).send(`Can not find record with id: ${_id}`);
   try {
@@ -41,7 +41,7 @@ async function patchAircraft(req, res, next) {
 }
 
 // [DELETE]: api/v1/Aircrafts/id
-async function deleteAircraft(req, res, next) {
+async function deleteAircraft(req, res) {
   const { _id } = req.params;
   if (!_id) return res.status(404).send(`Can not find record with id: ${_id}`);
   try {

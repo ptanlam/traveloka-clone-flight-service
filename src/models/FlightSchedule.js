@@ -9,7 +9,7 @@ const flightScheduleSchema = new Schema(
       maxLength: 20,
     },
 
-    airlineCode: { type: String, required: true },
+    AircraftCode: { type: String, required: true },
     aircraftCode: { type: String, required: true },
 
     firstAirportCode: { type: String, required: true },
