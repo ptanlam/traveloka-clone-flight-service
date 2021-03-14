@@ -6,19 +6,19 @@ const airlineSchema = new Schema({
   airlineName: {
     type: String,
     maxLength: 250,
-    required: true,
+    require: true,
     unique: true,
   },
 
   airlineCountry: {
     type: String,
     maxLength: 250,
-    required: true,
+    require: true,
   },
 
-  airlineLogoUrl: {
+  airlineLogo: {
     type: String,
-    required: true,
+    require: true,
   },
 });
 

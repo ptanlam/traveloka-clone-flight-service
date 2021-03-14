@@ -10,14 +10,15 @@ const airportSchema = new Schema(
       unique: true,
       required: true,
     },
-    airportLocation: { type: String, maxLength: 250, required: true },
-    airportLatitude: {
+    airportLocation: { type: String, maxLength: 250 },
+    // string lat long
+    airportLattitude: {
       type: String,
       maxLength: 250,
       unique: true,
       required: true,
     },
-    airportLongitude: {
+    airportLongtitude: {
       type: String,
       maxLength: 250,
       required: true,
@@ -27,7 +28,7 @@ const airportSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const Airport = mongoose.model('airports', airportSchema);

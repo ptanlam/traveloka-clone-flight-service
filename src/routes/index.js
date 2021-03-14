@@ -1,14 +1,20 @@
 import express from 'express';
-import airportRoutes from './airport';
-import airlineRoutes from './airline';
-import flightRoutes from './flight';
-import aircraftRoutes from './aircraft';
+import airportController from '../controllers/airportController';
+import airlineController from '../controllers/airlineController';
 
 const router = express.Router();
 
-router.use('/airports', airportRoutes);
-router.use('/airlines', airlineRoutes);
-router.use('/flights', flightRoutes);
-router.use('/aircrafts', aircraftRoutes);
+router
+  .route('/airports/:_id?')
+  .get(airportController.getAirports)
+  .post(airportController.postAirport)
+  .patch(airportController.patchAirport)
+  .delete(airportController.deleteAirport);
 
+router
+  .route('/airlines/:_id?')
+  .get(airlineController.getAirlines)
+  .post(airlineController.postAirline)
+  .patch(airlineController.patchAirline)
+  .delete(airlineController.deleteAirline);
 export default router;

@@ -4,27 +4,41 @@ const { Schema, SchemaTypes } = mongoose;
 
 const flightScheduleSchema = new Schema(
   {
-    _id: {
+    flightId: {
       type: String,
-      maxLength: 20,
+      maxlength: 20,
+      unique: true,
+      required: true,
     },
-
-    AircraftCode: { type: String, required: true },
-    aircraftCode: { type: String, required: true },
-
-    firstAirportCode: { type: String, required: true },
-    finalAirportCode: { type: String, required: true },
-    transitAirportCode: { type: String },
+    // 2 trường hold id thông tin về hãng và máy bay.
+    airlineName: { type: String, require: true }, // thêm logo
+    airlineCountry: { type: String, require: true },
+    // chuyển qua ref , lưu id mongo?
+    aircraftTypeName: { type: String, require: true }, // VD boeing 700, airbus
+    aircraftTypeCapacity: { type: Number, require: true }, // máy bay chỉ chứa được max là nhiêu đây
+    // thêm trường giá từng ghế [#1]
+    firstAirportCode: {
+      // lưu id mongo
+      type: Schema.Types.ObjectId,
+      ref: 'airport',
+    },
+    finalAirportCode: {
+      type: Schema.Types.ObjectId,
+      ref: 'airport',
+    },
+    transitAirportCode: {
+      type: [Schema.Types.ObjectId],
+      ref: 'airport',
+    },
 
     departureAt: { type: Date, required: true },
     arrivalAt: { type: Date, required: true },
-    commercialRatio: { type: SchemaTypes.Decimal128, default: 0 },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const FlightSchedule = mongoose.model('flight', flightScheduleSchema);
+const FlightSchedule = mongoose.model('flight_schedule', flightScheduleSchema);
 
 export default FlightSchedule;
