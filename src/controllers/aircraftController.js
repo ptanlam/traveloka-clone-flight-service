@@ -34,7 +34,7 @@ async function patchAircraft(req, res, next) {
     if (!aircraft) {
       return res.status(404).send(`Can not find record with id: ${_id}`);
     }
-    aircraft.update({ ...req.body });
+    await aircraft.update({ ...req.body });
     return res.status(200).send(`Updated record with id ${_id}`);
   } catch (error) {
     return next(error);

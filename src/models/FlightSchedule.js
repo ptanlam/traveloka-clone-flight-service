@@ -4,17 +4,14 @@ const { Schema, SchemaTypes } = mongoose;
 
 const flightScheduleSchema = new Schema(
   {
-    flightId: {
+    _id: {
       type: String,
       maxlength: 20,
-      unique: true,
-      required: true,
     },
     // 2 trường hold id thông tin về hãng và máy bay.
-    airlineName: { type: String, require: true }, // thêm logo
-    airlineCountry: { type: String, require: true },
+    airlineId: { type: String, maxlength: 20, require: true }, // thêm logo
     // chuyển qua ref , lưu id mongo?
-    aircraftTypeName: { type: String, require: true }, // VD boeing 700, airbus
+    aircraftTypeName: { type: String, maxlength: 20, require: true }, // VD boeing 700, airbus
     aircraftTypeCapacity: { type: Number, require: true }, // máy bay chỉ chứa được max là nhiêu đây
     // thêm trường giá từng ghế [#1]
     firstAirportCode: {
@@ -36,7 +33,7 @@ const flightScheduleSchema = new Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 const FlightSchedule = mongoose.model('flight_schedule', flightScheduleSchema);
